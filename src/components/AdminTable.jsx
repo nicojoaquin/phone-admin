@@ -1,13 +1,9 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AdminContext } from "../context/AdminContext";
 import Product from "./Product";
 
-const AdminTable = ({ onEdit }) => {
-  const { products, setProducts, readProducts } = useContext(AdminContext);
-
-  useEffect(() => {
-    readProducts();
-  }, [setProducts]);
+const AdminTable = ({ onEdit, onDelete }) => {
+  const { products } = useContext(AdminContext);
 
   return (
     <table className="table-auto min-w-full divide-y divide-gray-200 mt-3">
@@ -52,6 +48,7 @@ const AdminTable = ({ onEdit }) => {
             {...product}
             product={product}
             onEdit={onEdit}
+            onDelete={onDelete}
           />
         ))}
       </tbody>

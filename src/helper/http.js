@@ -1,35 +1,46 @@
 import axios from "axios";
 
-const url = "https://phone-storenyk.herokuapp.com/api/products/"
+const URL = process.env.REACT_APP__API_URL;
 
-export const createData = async (newData) => {
+//POST
+const createData = async (newData) => {
   try {
-    return await axios.post(url, newData)
+    return await axios.post(URL, newData)
   } catch (err) {
     console.warn(err.msg);
   }
 }
 
-export const readData = async () => {
+//GET
+const readData = async () => {
   try {
-    return await axios.get(url)
+    return await axios.get(URL)
   } catch (err) {
     console.warn(err.msg);
   }
 }
 
-export const updateData = async (id, updatedProduct) => {
+//PUT
+const updateData = async (id, updatedData) => {
   try {
-    return await axios.put(url + id, updatedProduct);
+    return await axios.put(URL + id, updatedData);
   } catch (err) {
     return console.warn(err.msg);
   }
 }
 
-export const deleteData = async (id) => {
+//DELETE
+const deleteData = async (id) => {
   try {
-    return await axios.delete(url + id);
+    return await axios.delete(URL + id);
   } catch (err) {
     return console.warn(err.msg);
   }
+}
+
+export {
+  createData,
+  readData,
+  updateData,
+  deleteData
 }

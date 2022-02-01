@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AdminContext } from "../context/AdminContext";
 import Modal from "react-modal";
 import AdminTable from "./AdminTable";
@@ -20,8 +20,19 @@ Modal.setAppElement("#root");
 
 const AdminContainer = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const { activeProduct, setActiveProduct, createProducts, updateProducts } =
-    useContext(AdminContext);
+  const {
+    activeProduct,
+    setProducts,
+    setActiveProduct,
+    readProducts,
+    createProducts,
+    updateProducts,
+    deleteProducts,
+  } = useContext(AdminContext);
+
+  useEffect(() => {
+    readProducts();
+  }, [setProducts]);
 
   //Abre el modal
   const openModal = () => {
@@ -39,12 +50,18 @@ const AdminContainer = () => {
     openModal();
   };
 
-  //Se abre el modal al empezar a agregar
+  //Se abre el modal al empezar a editar y se agrega el producto en activo
   const onEdit = (product) => {
     openModal();
     setActiveProduct(product);
   };
 
+  //Se elimina el producto
+  const onDelete = (id) => {
+    deleteProducts(id);
+  };
+
+  //Si hay producto activo, se edita, y si no se agrega
   const handleSubmit = (product, id) => {
     const {
       imgValue,
@@ -92,7 +109,7 @@ const AdminContainer = () => {
         </div>
       </div>
       <section>
-        <AdminTable onEdit={onEdit} />
+        <AdminTable onEdit={onEdit} onDelete={onDelete} />
       </section>
       <Modal
         isOpen={modalIsOpen}

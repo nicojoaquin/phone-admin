@@ -10,6 +10,7 @@ const ModalForm = ({
   stock,
   desc,
 }) => {
+  //Custom hook para controlar los inputs
   const [productValue, handleValues] = useForm({
     imgValue: "",
     nombreValue: nombre ?? "",
@@ -19,6 +20,7 @@ const ModalForm = ({
     descValue: desc ?? "",
   });
 
+  //Values del form desestructurados
   const {
     imgValue,
     nombreValue,
@@ -28,6 +30,7 @@ const ModalForm = ({
     descValue,
   } = productValue;
 
+  //Si estan los campos vacios hay error, y si no se manda a agregar/editar
   const onSubmit = (e) => {
     e.preventDefault();
     if ([nombreValue, marcaValue, precioValue, descValue].includes("")) return;

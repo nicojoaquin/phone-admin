@@ -1,13 +1,12 @@
-import { useContext } from "react";
-import { AdminContext } from "../context/AdminContext";
-
-const Product = ({ _id: id, marca, img, nombre, product, onEdit }) => {
-  const { deleteProducts } = useContext(AdminContext);
-
-  const handleDelete = () => {
-    deleteProducts(id);
-  };
-
+const Product = ({
+  _id: id,
+  marca,
+  img,
+  nombre,
+  product,
+  onEdit,
+  onDelete,
+}) => {
   return (
     <tr>
       <td className="px-6 py-4 whitespace-nowrap">
@@ -33,7 +32,7 @@ const Product = ({ _id: id, marca, img, nombre, product, onEdit }) => {
       </td>
       <td className="px-6 py-4 whitespace-nowrap  text-sm font-medium">
         <i
-          onClick={handleDelete}
+          onClick={() => onDelete(id)}
           className="bi bi-trash-fill text-red hover:text-red-h"
         ></i>
       </td>
