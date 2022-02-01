@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { AdminContext } from "../context/AdminContext";
 import Product from "./Product";
 
-const AdminTable = () => {
+const AdminTable = ({ onEdit }) => {
   const { products, setProducts, readProducts } = useContext(AdminContext);
 
   useEffect(() => {
@@ -15,19 +15,13 @@ const AdminTable = () => {
         <tr>
           <th
             scope="col"
-            className="text-xs font-medium text-gray-500 uppercase tracking-wider"
-          >
-            ID
-          </th>
-          <th
-            scope="col"
             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
           >
             Imagen
           </th>
           <th
             scope="col"
-            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
           >
             Marca
           </th>
@@ -36,24 +30,6 @@ const AdminTable = () => {
             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
           >
             Nombre
-          </th>
-          <th
-            scope="col"
-            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-          >
-            Descripción
-          </th>
-          <th
-            scope="col"
-            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-          >
-            Precio
-          </th>
-          <th
-            scope="col"
-            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-          >
-            Stock
           </th>
           <th
             scope="col"
@@ -70,8 +46,13 @@ const AdminTable = () => {
         </tr>
       </thead>
       <tbody>
-        {products.map((product) => (
-          <Product key={product._id} {...product} />
+        {products?.map((product) => (
+          <Product
+            key={product._id}
+            {...product}
+            product={product}
+            onEdit={onEdit}
+          />
         ))}
       </tbody>
     </table>

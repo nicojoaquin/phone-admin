@@ -16,9 +16,12 @@ const customStyles = {
   },
 };
 
+Modal.setAppElement("#root");
+
 const AdminContainer = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const { activeProduct, setActiveProduct } = useContext(AdminContext);
+  const { activeProduct, setActiveProduct, createProducts, updateProducts } =
+    useContext(AdminContext);
 
   //Abre el modal
   const openModal = () => {
@@ -36,12 +39,51 @@ const AdminContainer = () => {
     openModal();
   };
 
+  //Se abre el modal al empezar a agregar
+  const onEdit = (product) => {
+    openModal();
+    setActiveProduct(product);
+  };
+
+  const handleSubmit = (product, id) => {
+    const {
+      imgValue,
+      nombreValue,
+      marcaValue,
+      precioValue,
+      stockValue,
+      descValue,
+    } = product;
+    if (activeProduct) {
+      updateProducts(id, {
+        nombre: nombreValue,
+        marca: marcaValue,
+        precio: precioValue,
+        stock: stockValue,
+        desc: descValue,
+      });
+    } else {
+      createProducts({
+        img: imgValue,
+        nombre: nombreValue,
+        marca: marcaValue,
+        precio: precioValue,
+        stock: stockValue,
+        desc: descValue,
+      });
+    }
+    closeModal();
+  };
+
   return (
     <main className="container mx-auto">
       <div className="flex flex-wrap justify-evenly p-5 mt-5 border-b-blue border-b-2">
         <h1 className="text-5xl text-center mb-3">Panel de administración</h1>
         <div>
-          <button className="rounded-full bg-blue hover:bg-blue-h text-white p-3 ml-3">
+          <button
+            onClick={onAdd}
+            className="rounded-full bg-blue hover:bg-blue-h text-white p-3 ml-3"
+          >
             Agregar producto
           </button>
           <button className="rounded-full bg-red hover:bg-red-h text-white p-3 ml-3">
@@ -50,7 +92,7 @@ const AdminContainer = () => {
         </div>
       </div>
       <section>
-        <AdminTable />
+        <AdminTable onEdit={onEdit} />
       </section>
       <Modal
         isOpen={modalIsOpen}
@@ -58,7 +100,11 @@ const AdminContainer = () => {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <ModalForm {...activeProduct} activeProduct={activeProduct} />
+        <ModalForm
+          handleSubmit={handleSubmit}
+          {...activeProduct}
+          activeProduct={activeProduct}
+        />
       </Modal>
     </main>
   );

@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { deleteData, getData } from "../helpers/http";
+import { createData, deleteData, readData, updateData } from "../helper/http";
 
 export const AdminContext = createContext();
 
@@ -7,23 +7,40 @@ const AdminProvider = ({children}) => {
   const [products, setProducts] = useState([]);
   const [activeProduct, setActiveProduct] = useState(null);
 
+  const createProducts = async (product) => {
+    const {data} = await createData(product)
+    setProducts([data.product, ...products]);
+  };
+
   const readProducts = async () => {
-    const res = await getData();
-    setProducts(res.data.products);
+    const {data} = await readData();
+    setProducts(data.products);
+  };
+
+  const updateProducts = async (id, updatedProduct) => {
+    const {data} = await updateData(id, updatedProduct);
+    setProducts( products.map( product => product._id === id
+      ?
+      {...product, ...data.product}
+      :
+      product
+    ));
   };
 
   const deleteProducts = async (id) => {
-    deleteData(id)
-    setProducts(products.filter( product => product._id !== id));
+    const {data} = await deleteData(id)
+    setProducts(products.filter( product => product._id !== data.product._id));
   };
 
   return (
     <AdminContext.Provider value={{
         products,
-        setProducts,
         activeProduct,
+        setProducts,
         setActiveProduct,
+        createProducts,
         readProducts,
+        updateProducts,
         deleteProducts
       }}>{children}
     </AdminContext.Provider>

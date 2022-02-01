@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AdminContext } from "../context/AdminContext";
 
-const Product = ({ _id: id, marca, img, nombre, desc, precio, stock }) => {
+const Product = ({ _id: id, marca, img, nombre, product, onEdit }) => {
   const { deleteProducts } = useContext(AdminContext);
 
   const handleDelete = () => {
@@ -10,9 +10,6 @@ const Product = ({ _id: id, marca, img, nombre, desc, precio, stock }) => {
 
   return (
     <tr>
-      <th className="px-6 py-4 whitespace-nowrap">
-        <div className="text-sm text-gray-900">{id}</div>
-      </th>
       <td className="px-6 py-4 whitespace-nowrap">
         <img
           className="h-10 w-10 rounded-full"
@@ -28,17 +25,11 @@ const Product = ({ _id: id, marca, img, nombre, desc, precio, stock }) => {
           {nombre}
         </span>
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        {desc}
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        ${precio}
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        {stock}
-      </td>
       <td className="px-6 py-4 whitespace-nowrap  text-sm font-medium">
-        <i className="bi bi-pencil-square text-blue hover:text-blue-h"></i>
+        <i
+          onClick={() => onEdit(product)}
+          className="bi bi-pencil-square text-blue hover:text-blue-h"
+        ></i>
       </td>
       <td className="px-6 py-4 whitespace-nowrap  text-sm font-medium">
         <i
