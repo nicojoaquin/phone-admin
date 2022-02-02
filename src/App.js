@@ -9,11 +9,11 @@ function App() {
   return (
     <Router>
       <AdminProvider>
-      <Routes>
-        <Route path = '/' element = {<Admin />} />
-        <Route path = '/login' element = {<Login />} />
-        <Route path = '*' element = {<Navigate to="/" />} />
-      </Routes>
+        <Routes>
+          <Route path = '/' element = {<Admin />} />
+          <Route path = '/login' element = {<Login />} />
+          <Route path = '*' element = {<Navigate to="/" />} />
+        </Routes>
       </AdminProvider>
     </Router>
   );
