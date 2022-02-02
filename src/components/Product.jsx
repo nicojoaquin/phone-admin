@@ -1,12 +1,7 @@
-const Product = ({
-  _id: id,
-  marca,
-  img,
-  nombre,
-  product,
-  onEdit,
-  onDelete,
-}) => {
+const Product = ({ product, onEdit, onDelete }) => {
+  //Producto
+  const { _id: id, marca, img, nombre } = product;
+
   return (
     <tr>
       <td className="px-6 py-4 whitespace-nowrap">
@@ -17,7 +12,7 @@ const Product = ({
         />
       </td>
       <th className="px-6 py-4 whitespace-nowrap">
-        <div className="text-sm text-gray-900">{marca}</div>
+        <div className="text-sm text-gray-900 capitalize">{marca}</div>
       </th>
       <td className="px-6 py-4 whitespace-nowrap">
         <span className="px-2 inline-flex text-s leading-5  rounded-full bg-green-100 text-green-800">

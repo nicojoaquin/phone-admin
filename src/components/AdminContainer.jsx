@@ -20,10 +20,10 @@ Modal.setAppElement("#root");
 
 const AdminContainer = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [activeProduct, setActiveProduct] = useState(null);
+
   const {
-    activeProduct,
     setProducts,
-    setActiveProduct,
     readProducts,
     createProducts,
     updateProducts,
@@ -62,32 +62,11 @@ const AdminContainer = () => {
   };
 
   //Si hay producto activo, se edita, y si no se agrega
-  const handleSubmit = (product, id) => {
-    const {
-      imgValue,
-      nombreValue,
-      marcaValue,
-      precioValue,
-      stockValue,
-      descValue,
-    } = product;
+  const handleSubmit = (product, img, id) => {
     if (activeProduct) {
-      updateProducts(id, {
-        nombre: nombreValue,
-        marca: marcaValue,
-        precio: precioValue,
-        stock: stockValue,
-        desc: descValue,
-      });
+      updateProducts(id, product);
     } else {
-      createProducts({
-        img: imgValue,
-        nombre: nombreValue,
-        marca: marcaValue,
-        precio: precioValue,
-        stock: stockValue,
-        desc: descValue,
-      });
+      createProducts({ ...product, img });
     }
     closeModal();
   };
@@ -119,8 +98,8 @@ const AdminContainer = () => {
       >
         <ModalForm
           handleSubmit={handleSubmit}
-          {...activeProduct}
           activeProduct={activeProduct}
+          {...activeProduct}
         />
       </Modal>
     </main>

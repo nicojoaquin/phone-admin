@@ -45,7 +45,6 @@ const AdminTable = ({ onEdit, onDelete }) => {
         {products?.map((product) => (
           <Product
             key={product._id}
-            {...product}
             product={product}
             onEdit={onEdit}
             onDelete={onDelete}

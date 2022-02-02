@@ -34,7 +34,17 @@ const ModalForm = ({
   const onSubmit = (e) => {
     e.preventDefault();
     if ([nombreValue, marcaValue, precioValue, descValue].includes("")) return;
-    handleSubmit(productValue, id);
+    handleSubmit(
+      {
+        nombre: nombreValue,
+        marca: marcaValue.toLowerCase(),
+        precio: precioValue,
+        stock: stockValue,
+        desc: descValue,
+      },
+      imgValue,
+      id
+    );
   };
 
   return (

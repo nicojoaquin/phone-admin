@@ -6,8 +6,6 @@ export const AdminContext = createContext();
 const AdminProvider = ({children}) => {
   //Lista de productos
   const [products, setProducts] = useState([]);
-  //Producto activo para editar
-  const [activeProduct, setActiveProduct] = useState(null);
 
   //Petición POST para crear productos
   const createProducts = async (product) => {
@@ -41,9 +39,7 @@ const AdminProvider = ({children}) => {
   return (
     <AdminContext.Provider value={{
         products,
-        activeProduct,
         setProducts,
-        setActiveProduct,
         createProducts,
         readProducts,
         updateProducts,
