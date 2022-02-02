@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { createData, deleteData, readData, updateData } from "../helper/http";
+import { createData, deleteData, readData, readDataByParam, updateData } from "../helper/http";
 
 export const AdminContext = createContext();
 
@@ -16,6 +16,19 @@ const AdminProvider = ({children}) => {
   //Petición GET para obtener productos
   const readProducts = async () => {
     const {data} = await readData();
+    setProducts(data.products);
+  };
+
+  //Petición GET para obtener productos por marca
+  const readProductsByCat = async (marca) => {
+
+    const ALL_PRODUCTS = "all";
+    
+    if(marca === ALL_PRODUCTS) {
+      return readProducts();
+    }
+
+    const {data} = await readDataByParam(marca);
     setProducts(data.products);
   };
 
@@ -42,6 +55,7 @@ const AdminProvider = ({children}) => {
         setProducts,
         createProducts,
         readProducts,
+        readProductsByCat,
         updateProducts,
         deleteProducts
       }}>{children}

@@ -7,7 +7,7 @@ const createData = async (newData) => {
   try {
     return await axios.post(URL, newData)
   } catch (err) {
-    console.warn(err.msg);
+    return console.warn(err.msg);
   }
 }
 
@@ -16,9 +16,18 @@ const readData = async () => {
   try {
     return await axios.get(URL)
   } catch (err) {
-    console.warn(err.msg);
+    return console.warn(err.msg);
   }
 }
+
+//GET
+const readDataByParam = async (param) => {
+  try { 
+    return await axios.get(URL + param)
+  } catch (err) {
+    return console.warn(err.msg);
+  }
+};
 
 //PUT
 const updateData = async (id, updatedData) => {
@@ -41,6 +50,7 @@ const deleteData = async (id) => {
 export {
   createData,
   readData,
+  readDataByParam,
   updateData,
   deleteData
 }

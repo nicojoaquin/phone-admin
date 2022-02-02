@@ -5,11 +5,7 @@ const Product = ({ product, onEdit, onDelete }) => {
   return (
     <tr>
       <td className="px-6 py-4 whitespace-nowrap">
-        <img
-          className="h-10 w-10 rounded-full"
-          src={`${process.env.PUBLIC_URL}/assets/productos/${img}.png`}
-          alt={nombre}
-        />
+        <img className="h-10 w-10 rounded-full" src={img} alt={nombre} />
       </td>
       <th className="px-6 py-4 whitespace-nowrap">
         <div className="text-sm text-gray-900 capitalize">{marca}</div>

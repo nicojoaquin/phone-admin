@@ -4,6 +4,7 @@ const ModalForm = ({
   handleSubmit,
   activeProduct,
   _id: id,
+  img,
   nombre,
   marca,
   precio,
@@ -12,7 +13,7 @@ const ModalForm = ({
 }) => {
   //Custom hook para controlar los inputs
   const [productValue, handleValues] = useForm({
-    imgValue: "",
+    imgValue: img ?? "",
     nombreValue: nombre ?? "",
     marcaValue: marca ?? "",
     precioValue: precio ?? "",
@@ -33,16 +34,26 @@ const ModalForm = ({
   //Si estan los campos vacios hay error, y si no se manda a agregar/editar
   const onSubmit = (e) => {
     e.preventDefault();
-    if ([nombreValue, marcaValue, precioValue, descValue].includes("")) return;
+    if (
+      [
+        imgValue,
+        nombreValue,
+        marcaValue,
+        precioValue,
+        descValue,
+        stockValue,
+      ].includes("")
+    )
+      return;
     handleSubmit(
       {
+        img: imgValue,
         nombre: nombreValue,
         marca: marcaValue.toLowerCase(),
         precio: precioValue,
         stock: stockValue,
         desc: descValue,
       },
-      imgValue,
       id
     );
   };
@@ -51,18 +62,17 @@ const ModalForm = ({
     <div>
       <h2>{activeProduct ? "Editar producto" : "Agregar producto"}</h2>
       <form onSubmit={onSubmit}>
-        {!activeProduct && (
-          <div>
-            <label htmlFor="img">Imágen</label>
-            <input
-              name="imgValue"
-              value={imgValue}
-              onChange={handleValues}
-              type="text"
-              placeholder="Ingrese nombre de imágen"
-            />
-          </div>
-        )}
+        <div>
+          <label htmlFor="img">Imágen</label>
+          <input
+            name="imgValue"
+            value={imgValue}
+            onChange={handleValues}
+            type="text"
+            placeholder="Ingrese nombre de imágen"
+          />
+        </div>
+
         <div>
           <label htmlFor="name">Nombre</label>
           <input

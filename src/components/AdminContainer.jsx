@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AdminContext } from "../context/AdminContext";
 import Modal from "react-modal";
+import Select from "./Select";
 import AdminTable from "./AdminTable";
 import ModalForm from "./ModalForm";
 
@@ -25,6 +26,7 @@ const AdminContainer = () => {
   const {
     setProducts,
     readProducts,
+    readProductsByCat,
     createProducts,
     updateProducts,
     deleteProducts,
@@ -62,11 +64,11 @@ const AdminContainer = () => {
   };
 
   //Si hay producto activo, se edita, y si no se agrega
-  const handleSubmit = (product, img, id) => {
+  const handleSubmit = (product, id) => {
     if (activeProduct) {
       updateProducts(id, product);
     } else {
-      createProducts({ ...product, img });
+      createProducts(product);
     }
     closeModal();
   };
@@ -76,6 +78,7 @@ const AdminContainer = () => {
       <div className="flex flex-wrap justify-evenly p-5 mt-5 border-b-blue border-b-2">
         <h1 className="text-5xl text-center mb-3">Panel de administración</h1>
         <div>
+          <Select readProductsByCat={readProductsByCat} />
           <button
             onClick={onAdd}
             className="rounded-full bg-blue hover:bg-blue-h text-white p-3 ml-3"

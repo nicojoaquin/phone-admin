@@ -1,13 +1,21 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import AdminProvider from "./context/AdminContext";
-import AdminContainer from "./components/AdminContainer";
+import Admin from "./pages/Admin";
+import Login from "./pages/Login";
 
 import "./App.css";
 
 function App() {
   return (
-    <AdminProvider>
-      <AdminContainer />
-    </AdminProvider>
+    <Router>
+      <AdminProvider>
+      <Routes>
+        <Route path = '/' element = {<Admin />} />
+        <Route path = '/login' element = {<Login />} />
+        <Route path = '*' element = {<Navigate to="/" />} />
+      </Routes>
+      </AdminProvider>
+    </Router>
   );
 }
 
